@@ -1,16 +1,32 @@
-import { Review } from '../models/models.js'
+import { Review, Order } from '../models/models.js'
 
 const userHasPlacedOrderInRestaurant = async (req, res, next) => {
-  res.status(500).send('To be implemented')
+  try {
+    const numberOfOrders = await Order.count({ where: { restaurantId: req.params.restaurantId, userId: req.user.id } })
+    if (numberOfOrders !== 0) {
+      return next()
+    }
+    return res.status(409).json({ message: 'User has never placed order in this restaurant' })
+  } catch (err) {
+    res.status(500).send(err)
+  }
 }
 
 const checkCustomerHasNotReviewed = async (req, res, next) => {
-  res.status(500).send('To be implemented')
+  try {
+    const numReviews = await Review.count({ where: { userId: req.user.id, restaurantId: req.params.restaurantId } })
+    if (numReviews === 0) {
+      return next()
+    }
+    return res.status(409).json({ message: 'User has already reviewed this restaurant' })
+  } catch (err) {
+    res.status(500).send(err)
+  }
 }
 
 const checkReviewOwnership = async (req, res, next) => {
   const review = await Review.findByPk(req.params.reviewId)
-  if (review.customerId !== req.user.id) {
+  if (review.userId !== req.user.id) {
     return res.status(403).json({ message: 'You do not have permission to modify this review.' })
   }
   next()

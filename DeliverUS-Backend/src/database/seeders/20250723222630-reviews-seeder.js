@@ -8,7 +8,7 @@ module.exports = {
         stars: 4,
         body: 'La comida llegó caliente y estaba muy buena. Repetiré seguro.',
         restaurantId: 1,
-        customerId: 1,
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -16,7 +16,7 @@ module.exports = {
         stars: 5,
         body: 'Todo genial, buen servicio y productos deliciosos.',
         restaurantId: 2,
-        customerId: 1,
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -59,8 +59,8 @@ module.exports = {
     ], {})
 
     await queryInterface.bulkInsert('Reviews', [
-      { id: 9999, stars: 4, body: 'Good food', restaurantId: 101, customerId: 1, createdAt: new Date(), updatedAt: new Date() },
-      { id: 10000, stars: 5, body: 'Excellent!', restaurantId: 101, customerId: 102, createdAt: new Date(), updatedAt: new Date() }
+      { id: 9999, stars: 4, body: 'Good food', restaurantId: 101, userId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { id: 10000, stars: 5, body: 'Excellent!', restaurantId: 101, userId: 102, createdAt: new Date(), updatedAt: new Date() }
     ], {})
   },
 
